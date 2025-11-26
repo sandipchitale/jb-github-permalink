@@ -1,0 +1,66 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>dev.sandipchitale.productivity.plugins.jb-github-permalink</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Github Permalink</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="sandipchitale@gmail.com" url="https://github/sandipchitale">Sandip Chitale</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+        This plugin provides a way to actions related to permalink for the current line in the editor.
+        <ul>
+           <li>Copy GitHub Permalink</li>
+           <li>Open on GitHub using Permalink</li>
+        </ul>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <dependencies>
+        <plugin id="com.intellij.modules.platform"/>
+        <plugin id="org.jetbrains.plugins.github"/>
+    </dependencies>
+    <change-notes><![CDATA[
+        <h2>Features</h2>
+        <ul>
+            <li>Open on GitHub action in Open In submenu and Select In menu.</li>
+            <li>Copy GitHub Permalink action in editor context menu and editor guttor context menu.</li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <ul>
+            <li>None yet.</li>
+        </ul>
+        ]]>
+    </change-notes>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <selectInTarget id="dev.sandipchitale.productivity.plugins.githubpermalink.OpenGitHubPermalink"
+                        implementation="dev.sandipchitale.productivity.plugins.githubpermalink.OpenGitHubPermalink"/>
+    </extensions>
+
+    <actions>
+        <action id="github-permalink-copy"
+                class="dev.sandipchitale.productivity.plugins.githubpermalink.CopyGitHubPermalinkAction"
+                text="Copy GitHub Permalink"
+                description="Copy GitHub permalink">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="EditorToggleColumnMode"/>
+            <add-to-group group-id="EditorGutterPopupMenu" anchor="last"/>
+        </action>
+        <action id="github-permalink-open"
+                class="dev.sandipchitale.productivity.plugins.githubpermalink.OpenGitHubPermalinkAction"
+                text="Open on GitHub"
+                description="Open on GitHub">
+            <add-to-group group-id="RevealGroup" anchor="last"/>
+            <add-to-group group-id="EditorGutterPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
